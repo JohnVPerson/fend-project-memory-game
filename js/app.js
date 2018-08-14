@@ -1,7 +1,8 @@
 /*
  * Create a list that holds all of your cards
  */
-
+let card = document.getElementsByClassName('card');
+let cards = [...card];
 
 /*
  * Display the cards on the page
@@ -9,7 +10,15 @@
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
+const deck = document.querySelector('.deck');
+function startGame() {
+	var shuffleCards = shuffle(cards);
+	for (var c = 0; c < shuffleCards.length; c++) {
+		[].forEach.call(shuffleCards, function(item) {
+			deck.appendChild(item);
+		});
+	};
+};
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -25,7 +34,7 @@ function shuffle(array) {
     return array;
 }
 
-
+window.onload = startGame();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
