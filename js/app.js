@@ -45,3 +45,13 @@ window.onload = startGame();
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+var showCard = function() {
+	this.classList.toggle('open');
+	this.classList.toggle('show');
+	this.removeEventListener('click', showCard);
+};
+
+for (i = 0; i < cards.length; i++) {
+	cards[i].addEventListener('click', showCard);
+};
