@@ -3,6 +3,7 @@
  */
 let card = document.getElementsByClassName('card');
 let cards = [...card];
+let openedCards = []
 
 /*
  * Display the cards on the page
@@ -50,8 +51,39 @@ var showCard = function() {
 	this.classList.toggle('open');
 	this.classList.toggle('show');
 	this.removeEventListener('click', showCard);
+	openedCards.push(this);
+	matchCards();
 };
 
 for (i = 0; i < cards.length; i++) {
 	cards[i].addEventListener('click', showCard);
+};
+
+function matchCards() {
+	let len = openedCards.length;
+	if (len === 2) {
+		if (openedCards[0].firstElementChild.classList.value === openedCards[1].firstElementChild.classList.value) {
+			matched();
+		} else {
+			unmatched();
+		};
+	};
+};
+
+function matched() {
+	openedCards[0].classList.add('match');
+	openedCards[1].classList.add('match');
+	openedCards =[];
+};
+
+function unmatched() {
+	openedCards[0].classList.add('unmatch');
+	openedCards[1].classList.add('unmatch');
+	setTimeout(function() {
+		openedCards[0].classList.remove('open', 'show', 'unmatch');
+		openedCards[1].classList.remove('open', 'show', 'unmatch');
+		openedCards[0].addEventListener('click', showCard);
+		openedCards[1].addEventListener('click', showCard);
+		openedCards = [];
+	}, 1100);
 };
