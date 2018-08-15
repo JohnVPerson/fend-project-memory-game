@@ -41,6 +41,7 @@ function shuffle(array) {
 
 window.onload = startGame();
 restart.addEventListener('click', restartGame);
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -60,9 +61,7 @@ var showCard = function() {
 	matchCards();
 };
 
-for (i = 0; i < cards.length; i++) {
-	cards[i].addEventListener('click', showCard);
-};
+addEvents();
 
 function matchCards() {
 	let len = openedCards.length;
@@ -85,12 +84,15 @@ function matched() {
 function unmatched() {
 	openedCards[0].classList.add('unmatch');
 	openedCards[1].classList.add('unmatch');
+	// Removes ability to click unopened cards.
+	removeEvents();
 	setTimeout(function() {
 		openedCards[0].classList.remove('open', 'show', 'unmatch');
 		openedCards[1].classList.remove('open', 'show', 'unmatch');
 		openedCards[0].addEventListener('click', showCard);
 		openedCards[1].addEventListener('click', showCard);
 		openedCards = [];
+		addEvents();
 	}, 1100);
 };
 
@@ -119,9 +121,7 @@ function restartGame() {
 	counter.innerHTML = moves;
 	hideAll();
 	startGame();
-	for (i = 0; i < cards.length; i++) {
-		cards[i].addEventListener('click', showCard);
-	};
+	addEvents();
 	for (i = 0; i < stars.length; i++) {
 		stars[i].firstElementChild.classList.remove('fa-star-o');
 		stars[i].firstElementChild.classList.add('fa-star');
@@ -131,5 +131,17 @@ function restartGame() {
 function hideAll() {
 	for(i = 0; i < cards.length; i++) {
 		cards[i].classList.remove('show', 'open', 'match');
+	};
+};
+
+function addEvents() {
+	for (i = 0; i < cards.length; i++) {
+		cards[i].addEventListener('click', showCard);
+	};
+};
+
+function removeEvents(){
+	for(i = 0; i < cards.length; i++) {
+		cards[i].removeEventListener('click', showCard)
 	};
 };
