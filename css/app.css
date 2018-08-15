@@ -69,20 +69,29 @@ h1 {
     transform: rotateY(0);
     background: #02b3e4;
     cursor: default;
+    font-size: 33px;
+
 }
 
 .deck .card.show {
-    font-size: 33px;
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
 }
 
 .deck .card.match {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+    animation-name: expand;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
 }
 
 .deck .card.unmatch {
     background: #b7410e;
+    animation-name: shake;
+    animation-duration: 1s;
 }
 
 /*
@@ -130,4 +139,31 @@ h1 {
     border-radius: 4px;
     border: none;
     padding: 10px 20px 10px 20px;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@keyframes rotate {
+    0% { transform: rotateY(0deg); }
+    25% { transform: rotateY(90deg); }
+    100% {transform: rotateY(0deg);}
+}
+
+@keyframes expand {
+    0% { transform: scaleX(1) scaleY(1); }
+    10% { transform: scaleX(0.8) scaleY(0.8); }
+    70% { transform: scaleX(1.15) scaleY(1.15); }
+    100% { transform: scaleX(1) scaleY(1); }
 }
