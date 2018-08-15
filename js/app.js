@@ -143,7 +143,9 @@ function hideAll() {
 
 function addEvents() {
 	for (i = 0; i < cards.length; i++) {
-		cards[i].addEventListener('click', showCard);
+		if (!cards[i].classList.value.includes('match')) {
+			cards[i].addEventListener('click', showCard);
+		};
 	};
 };
 
