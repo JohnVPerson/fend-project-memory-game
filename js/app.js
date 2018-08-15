@@ -8,6 +8,8 @@ let moves = 0;
 let counter = document.querySelector('.moves');
 let stars = document.querySelector('.stars').children;
 let restart = document.querySelector('.restart');
+let replay = document.querySelector('.replay');
+let matchedCards = [];
 
 /*
  * Display the cards on the page
@@ -37,10 +39,11 @@ function shuffle(array) {
     }
 
     return array;
-}
+};
 
 window.onload = startGame();
 restart.addEventListener('click', restartGame);
+replay.addEventListener('click', replayGame);
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -69,6 +72,9 @@ function matchCards() {
 		movesCounter();
 		if (openedCards[0].firstElementChild.classList.value === openedCards[1].firstElementChild.classList.value) {
 			matched();
+			if (matchedCards.length === 16) {
+				winGame();
+			}
 		} else {
 			unmatched();
 		};
@@ -78,13 +84,14 @@ function matchCards() {
 function matched() {
 	openedCards[0].classList.add('match');
 	openedCards[1].classList.add('match');
+	matchedCards.push(openedCards[0], openedCards[1]);
 	openedCards =[];
 };
 
 function unmatched() {
 	openedCards[0].classList.add('unmatch');
 	openedCards[1].classList.add('unmatch');
-	// Removes ability to click unopened cards.
+	// Removes ability to click unopened cards. If clicked during timeout cards would not revert to hidden.
 	removeEvents();
 	setTimeout(function() {
 		openedCards[0].classList.remove('open', 'show', 'unmatch');
@@ -144,4 +151,27 @@ function removeEvents(){
 	for(i = 0; i < cards.length; i++) {
 		cards[i].removeEventListener('click', showCard)
 	};
+};
+
+function winGame() {
+	let gameBoard = document.querySelector('.container');
+	let scoreCard = document.querySelector('.scoreCard');
+	let numMoves = document.querySelector('.numMoves');
+	let numStars = document.querySelector('.numStars');
+	gameBoard.style.display = 'none';
+	scoreCard.style.display = 'flex';
+	numMoves.innerHTML = moves;
+	if (moves > 8 && moves < 12) {
+		numStars.innerHTML = '2 Stars';
+	} else if (moves > 12) {
+		numStars.innerHTML = '1 Star';
+	};
+};
+
+function replayGame() {
+	let gameBoard = document.querySelector('.container');
+	let scoreCard = document.querySelector('.scoreCard');
+	gameBoard.style.display = 'flex';
+	scoreCard.style.display = 'none';
+	restartGame();
 };

@@ -111,3 +111,23 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/*
+ * Styles for the Score Card
+ */
+
+.scoreCard {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 680px;
+}
+
+.replay {
+    color: #ffffff;
+    background: #00b581;
+    border-radius: 4px;
+    border: none;
+    padding: 10px 20px 10px 20px;
+}
