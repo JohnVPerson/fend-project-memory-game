@@ -3,7 +3,10 @@
  */
 let card = document.getElementsByClassName('card');
 let cards = [...card];
-let openedCards = []
+let openedCards = [];
+let moves = 0;
+let counter = document.querySelector('.moves');
+let star = document.querySelector('.stars').children;
 
 /*
  * Display the cards on the page
@@ -62,6 +65,7 @@ for (i = 0; i < cards.length; i++) {
 function matchCards() {
 	let len = openedCards.length;
 	if (len === 2) {
+		movesCounter();
 		if (openedCards[0].firstElementChild.classList.value === openedCards[1].firstElementChild.classList.value) {
 			matched();
 		} else {
@@ -86,4 +90,24 @@ function unmatched() {
 		openedCards[1].addEventListener('click', showCard);
 		openedCards = [];
 	}, 1100);
+};
+
+function movesCounter() {
+	moves++;
+	counter.innerHTML = moves;
+	if(moves > 8 && moves < 12) {
+		for(i = 0; i <= 2; i++) {
+			if(i > 1) {
+				star[i].firstElementChild.classList.remove('fa-star');
+				star[i].firstElementChild.classList.add('fa-star-o');
+			};
+		};
+	}else if(moves > 12) {
+		for(i = 0; i <=2; i++) {
+			if(i > 0) {
+				star[i].firstElementChild.classList.remove('fa-star');
+				star[i].firstElementChild.classList.add('fa-star-o');				
+			};
+		};
+	};
 };
