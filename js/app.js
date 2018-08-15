@@ -6,7 +6,8 @@ let cards = [...card];
 let openedCards = [];
 let moves = 0;
 let counter = document.querySelector('.moves');
-let star = document.querySelector('.stars').children;
+let stars = document.querySelector('.stars').children;
+let restart = document.querySelector('.restart');
 
 /*
  * Display the cards on the page
@@ -39,6 +40,7 @@ function shuffle(array) {
 }
 
 window.onload = startGame();
+restart.addEventListener('click', restartGame);
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -98,16 +100,36 @@ function movesCounter() {
 	if(moves > 8 && moves < 12) {
 		for(i = 0; i <= 2; i++) {
 			if(i > 1) {
-				star[i].firstElementChild.classList.remove('fa-star');
-				star[i].firstElementChild.classList.add('fa-star-o');
+				stars[i].firstElementChild.classList.remove('fa-star');
+				stars[i].firstElementChild.classList.add('fa-star-o');
 			};
 		};
 	}else if(moves > 12) {
 		for(i = 0; i <=2; i++) {
 			if(i > 0) {
-				star[i].firstElementChild.classList.remove('fa-star');
-				star[i].firstElementChild.classList.add('fa-star-o');				
+				stars[i].firstElementChild.classList.remove('fa-star');
+				stars[i].firstElementChild.classList.add('fa-star-o');				
 			};
 		};
+	};
+};
+
+function restartGame() {
+	moves = 0;
+	counter.innerHTML = moves;
+	hideAll();
+	startGame();
+	for (i = 0; i < cards.length; i++) {
+		cards[i].addEventListener('click', showCard);
+	};
+	for (i = 0; i < stars.length; i++) {
+		stars[i].firstElementChild.classList.remove('fa-star-o');
+		stars[i].firstElementChild.classList.add('fa-star');
+	}
+};
+
+function hideAll() {
+	for(i = 0; i < cards.length; i++) {
+		cards[i].classList.remove('show', 'open', 'match');
 	};
 };
