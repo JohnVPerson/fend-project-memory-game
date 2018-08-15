@@ -106,14 +106,14 @@ function unmatched() {
 function movesCounter() {
 	moves++;
 	counter.innerHTML = moves;
-	if(moves > 8 && moves < 12) {
+	if(moves > 11 && moves < 15) {
 		for(i = 0; i <= 2; i++) {
 			if(i > 1) {
 				stars[i].firstElementChild.classList.remove('fa-star');
 				stars[i].firstElementChild.classList.add('fa-star-o');
 			};
 		};
-	}else if(moves > 12) {
+	}else if(moves > 15) {
 		for(i = 0; i <=2; i++) {
 			if(i > 0) {
 				stars[i].firstElementChild.classList.remove('fa-star');
@@ -163,9 +163,11 @@ function winGame() {
 	gameBoard.style.display = 'none';
 	scoreCard.style.display = 'flex';
 	numMoves.innerHTML = moves;
-	if (moves > 8 && moves < 12) {
+	if (moves > 11) {
+		numStars.innerHTML = '3 Stars'
+	} else if (moves > 11 && moves < 15) {
 		numStars.innerHTML = '2 Stars';
-	} else if (moves > 12) {
+	} else if (moves > 15) {
 		numStars.innerHTML = '1 Star';
 	};
 };
