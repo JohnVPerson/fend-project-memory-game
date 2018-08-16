@@ -73,7 +73,7 @@ function matchCards() {
 		if (openedCards[0].firstElementChild.classList.value === openedCards[1].firstElementChild.classList.value) {
 			matched();
 			if (matchedCards.length === 16) {
-				winGame();
+				setTimeout(winGame, 1300);
 			}
 		} else {
 			unmatched();
