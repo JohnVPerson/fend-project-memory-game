@@ -164,7 +164,7 @@ function winGame() {
 	gameBoard.style.display = 'none';
 	scoreCard.style.display = 'flex';
 	numMoves.innerHTML = moves;
-	if (moves > 11) {
+	if (moves < 11) {
 		numStars.innerHTML = '3 Stars'
 	} else if (moves > 11 && moves < 15) {
 		numStars.innerHTML = '2 Stars';
