@@ -10,6 +10,9 @@ let stars = document.querySelector('.stars').children;
 let restart = document.querySelector('.restart');
 let replay = document.querySelector('.replay');
 let matchedCards = [];
+let seconds = 0;
+let minutes = 0;
+let firstMove = true;
 
 /*
  * Display the cards on the page
@@ -57,6 +60,10 @@ replay.addEventListener('click', replayGame);
  */
 
 var showCard = function() {
+	if (firstMove) {
+		firstMove = false;
+		startTimer();
+	};
 	this.classList.toggle('open');
 	this.classList.toggle('show');
 	this.removeEventListener('click', showCard);
@@ -124,6 +131,9 @@ function movesCounter() {
 };
 
 function restartGame() {
+	seconds = 0;
+	minutes = 0;
+	firstMove = true;
 	moves = 0;
 	counter.innerHTML = moves;
 	matchedCards = [];
@@ -161,9 +171,12 @@ function winGame() {
 	let scoreCard = document.querySelector('.scoreCard');
 	let numMoves = document.querySelector('.numMoves');
 	let numStars = document.querySelector('.numStars');
+	let minuteDisplay = document.querySelector('.minutes');
+	let secondDisplay = document.querySelector('.seconds');
 	gameBoard.style.display = 'none';
 	scoreCard.style.display = 'flex';
 	numMoves.innerHTML = moves;
+	stopTimer();
 	if (moves < 11) {
 		numStars.innerHTML = '3 Stars'
 	} else if (moves > 11 && moves < 15) {
@@ -171,6 +184,16 @@ function winGame() {
 	} else if (moves > 15) {
 		numStars.innerHTML = '1 Star';
 	};
+	if (minutes === 1) {
+		minuteDisplay.innerHTML = minutes + " minute"
+	} else {
+		minuteDisplay.innerHTML = minutes + " minutes"
+	};
+	if (seconds === 1) {
+		secondDisplay.innerHTML = seconds + " seconds"
+	} else {
+		secondDisplay.innerHTML = seconds + ' seconds'
+	}
 };
 
 function replayGame() {
@@ -180,3 +203,17 @@ function replayGame() {
 	scoreCard.style.display = 'none';
 	restartGame();
 };
+
+function startTimer() {
+	timer = setInterval(function() {
+		seconds ++;
+		if (seconds === 60) {
+			minutes = 1 + minutes;
+			seconds = 0;
+		}
+	}, 1000);
+};
+
+function stopTimer() {
+	clearInterval(timer);
+}
