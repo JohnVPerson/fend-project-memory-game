@@ -126,6 +126,7 @@ function movesCounter() {
 function restartGame() {
 	moves = 0;
 	counter.innerHTML = moves;
+	matchedCards = [];
 	hideAll();
 	startGame();
 	addEvents();
